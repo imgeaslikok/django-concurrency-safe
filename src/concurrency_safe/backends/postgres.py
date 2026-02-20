@@ -1,4 +1,5 @@
 import time
+
 from django.db import connection
 
 from ..hashing import key_to_int64

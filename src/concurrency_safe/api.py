@@ -3,8 +3,8 @@ from __future__ import annotations
 from contextlib import contextmanager
 from typing import Iterator, Protocol
 
-from .exceptions import LockAcquireTimeout
 from .backends.postgres import PostgresAdvisoryLockBackend
+from .exceptions import LockAcquireTimeout
 
 
 class LockBackend(Protocol):

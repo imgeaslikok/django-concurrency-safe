@@ -3,11 +3,12 @@ from __future__ import annotations
 import time
 
 from django.db import transaction
-from django.http import JsonResponse, HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from concurrency_safe import concurrency_safe
+
 from .models import Stock
 
 

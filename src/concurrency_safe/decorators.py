@@ -3,11 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from functools import wraps
 from inspect import signature
-from typing import Any, Callable, Mapping, Protocol, Literal
+from typing import Any, Callable, Literal, Mapping, Protocol
 
 from .api import lock
 from .exceptions import LockAcquireTimeout
-
 
 Mode = Literal["raise", "return_none", "callable"]
 
