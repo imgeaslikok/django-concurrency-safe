@@ -63,12 +63,12 @@ When the lock cannot be acquired:
 ```python
 @concurrency_safe(key="stock:{sku}")
 ```
-Raises:
-```python
-LockAcquireTimeout
-```
+Raises `LockAcquireTimeout` by default.
+
 Custom handler:
 ```python
+from django.http import JsonResponse
+
 def busy(*args, **kwargs):
     return JsonResponse({"detail": "busy"}, status=409)
 
@@ -77,6 +77,14 @@ def busy(*args, **kwargs):
     on_conflict=busy,
 )
 ```
+
+---
+
+## Example project
+
+`example/` contains a runnable Django demo showcasing the race condition, row-level locks, and advisory locks (PostgreSQL).
+
+
 ---
 ## Why advisory locks?
 Unlike row-level locking, advisory locks:
