@@ -1,5 +1,8 @@
 # django-concurrency-safe
 
+[![PyPI version](https://badge.fury.io/py/django-concurrency-safe.svg)](https://pypi.org/project/django-concurrency-safe/)
+[![Python versions](https://img.shields.io/pypi/pyversions/django-concurrency-safe.svg)](https://pypi.org/project/django-concurrency-safe/)
+
 Concurrency guard for Django using PostgreSQL advisory locks.
 
 Prevent race conditions in critical sections using simple, expressive decorators or context managers.
