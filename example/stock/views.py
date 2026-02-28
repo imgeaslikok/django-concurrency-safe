@@ -12,7 +12,9 @@ from concurrency_safe import concurrency_safe
 from .models import Stock
 
 
-def _json(ok: bool, *, sku: str, qty: int, detail: str | None = None, status: int = 200) -> JsonResponse:
+def _json(
+    ok: bool, *, sku: str, qty: int, detail: str | None = None, status: int = 200
+) -> JsonResponse:
     """
     Small helper to keep responses consistent across endpoints.
     """
@@ -43,7 +45,9 @@ def buy_bad(request: HttpRequest, sku: str) -> HttpResponse:
     stock = Stock.objects.get(sku=sku)
 
     if stock.quantity <= 0:
-        return _json(False, sku=sku, qty=stock.quantity, detail="out of stock", status=409)
+        return _json(
+            False, sku=sku, qty=stock.quantity, detail="out of stock", status=409
+        )
 
     # Artificial delay to make the race condition easy to reproduce.
     time.sleep(0.8)
@@ -67,7 +71,9 @@ def buy_safe_db_lock(request: HttpRequest, sku: str) -> HttpResponse:
         stock = Stock.objects.select_for_update().get(sku=sku)
 
         if stock.quantity <= 0:
-            return _json(False, sku=sku, qty=stock.quantity, detail="out of stock", status=409)
+            return _json(
+                False, sku=sku, qty=stock.quantity, detail="out of stock", status=409
+            )
 
         time.sleep(0.8)  # keep the same delay for a fair comparison
 
@@ -93,7 +99,9 @@ def buy_safe_lock(request: HttpRequest, sku: str) -> HttpResponse:
     stock = Stock.objects.get(sku=sku)
 
     if stock.quantity <= 0:
-        return _json(False, sku=sku, qty=stock.quantity, detail="out of stock", status=409)
+        return _json(
+            False, sku=sku, qty=stock.quantity, detail="out of stock", status=409
+        )
 
     time.sleep(0.8)
 
