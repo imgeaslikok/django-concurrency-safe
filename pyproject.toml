@@ -46,6 +46,7 @@ Issues = "https://github.com/imgeaslikok/django-concurrency-safe/issues"
 [project.optional-dependencies]
 test = [
   "pytest>=8",
+  "psycopg[binary]>=3.1",
 ]
 dev = [
   "ruff>=0.6",
