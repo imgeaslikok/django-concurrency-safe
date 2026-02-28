@@ -2,7 +2,7 @@ services:
   db:
     image: postgres:16
     environment:
-      POSTGRES_DB: concurrency_demo
+      POSTGRES_DB: concurrency_safe
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
