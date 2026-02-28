@@ -83,28 +83,53 @@ def busy(*args, **kwargs):
 
 ---
 
+## Testing
+django-concurrency-safe is tested against real PostgreSQL using advisory locks.
+
+Integration tests require a running PostgreSQL instance.
+
+Start PostgreSQL using docker compose:
+
+```bash
+docker compose up -d
+```
+Run tests:
+```bash
+export DATABASE_URL=postgres://postgres:postgres@localhost:5432/concurrency_safe
+pytest
+```
+Tests will automatically use PostgreSQL via the `DATABASE_URL` environment variable.
+
+---
+
 ## Example project
 
 `example/` contains a runnable Django demo showcasing the race condition, row-level locks, and advisory locks (PostgreSQL).
 
-
 ---
+
 ## Why advisory locks?
 Unlike row-level locking, advisory locks:
 - Work without locking a specific database row
 - Support arbitrary business keys
 - Are fast and lightweight
 - Automatically release on connection close
+
 ---
+
 ## Requirements
 - Python 3.10+
 - Django 4.2+
 - PostgreSQL
+
 ---
+
 ## Roadmap
 - Redis backend
 - Async support
 - Metrics hooks
+
 ---
+
 ## License
 MIT
