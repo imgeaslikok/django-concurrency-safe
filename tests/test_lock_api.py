@@ -4,6 +4,7 @@ from concurrency_safe.exceptions import LockAcquireTimeout
 
 # Context manager tests
 
+
 class DummyBackend:
     def __init__(self):
         self.acquired = []
@@ -48,6 +49,7 @@ def test_lock_raises_timeout_when_not_acquired():
 
 
 # Decorator tests (DB-free)
+
 
 class DummyLock:
     def __enter__(self):

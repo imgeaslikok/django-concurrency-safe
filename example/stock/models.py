@@ -7,6 +7,7 @@ class Stock(models.Model):
 
     This is intentionally simple: a SKU and an available quantity.
     """
+
     sku = models.CharField(max_length=64, unique=True)
     quantity = models.IntegerField(default=0)
 

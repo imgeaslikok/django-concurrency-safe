@@ -14,6 +14,7 @@ class LockBackend(Protocol):
     This allows alternative implementations (e.g. Redis) without changing
     the public API.
     """
+
     def acquire(self, key: str, timeout: float | None) -> bool: ...
     def release(self, key: str) -> None: ...
 

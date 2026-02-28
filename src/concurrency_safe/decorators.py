@@ -15,6 +15,7 @@ class ConflictHandler(Protocol):
     """
     Called when the lock cannot be acquired within the timeout.
     """
+
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 
@@ -27,6 +28,7 @@ class ConflictPolicy:
     - "return_none": return None (useful for best-effort operations)
     - "callable": call user-provided handler and return its result
     """
+
     mode: Mode = "raise"
     handler: ConflictHandler | None = None
 
@@ -89,7 +91,8 @@ def concurrency_safe(
     - on_conflict=<callable>: call it and return its result
     """
     policy = (
-        ConflictPolicy(mode=on_conflict) if isinstance(on_conflict, str)
+        ConflictPolicy(mode=on_conflict)
+        if isinstance(on_conflict, str)
         else ConflictPolicy(mode="callable", handler=on_conflict)
     )
 

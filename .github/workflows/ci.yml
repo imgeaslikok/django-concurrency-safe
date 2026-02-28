@@ -12,6 +12,24 @@ jobs:
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13"]
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: concurrency_safe
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d concurrency_safe"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/concurrency_safe
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,6 +45,21 @@ jobs:
           python -m pip install -U pip
           python -m pip install -e ".[test]"
           python -m pip install -e ".[dev]"
+
+      - name: Wait for PostgreSQL
+        run: |
+          for i in {1..30}; do
+            if pg_isready -h localhost -p 5432 -U postgres -d concurrency_safe; then
+              echo "PostgreSQL is ready"
+              exit 0
+            fi
+            echo "Waiting for PostgreSQL..."
+            sleep 1
+          done
+          echo "PostgreSQL did not become ready in time"
+          exit 1
+        env:
+          PGPASSWORD: postgres
 
       - name: Lint (ruff)
         run: |
